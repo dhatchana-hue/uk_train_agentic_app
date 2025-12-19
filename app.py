@@ -130,15 +130,17 @@ if st.session_state.selected_train_id is not None:
         # ---------------------------
         # Seat Booking Agent
         # ---------------------------
-        if st.button("🎟️ Confirm Seat Booking"):
+     if st.button("🎟️ Confirm Seat Booking"):
             st.success("5) Seat Booking Agent ✔")
-            ok, msg = seat_booking_agent(st.session_state.seat_map, st.session_state.chosen_seat_label)
+            ok, msg = seat_booking_agent(
+                st.session_state.seat_map,
+                st.session_state.chosen_seat_label
+            )
 
             if not ok:
                 st.error(f"Booking failed: {msg}")
                 st.stop()
 
-            # booking object
             booking = {
                 "train_id": int(selected_row["train_id"]),
                 "train_name": str(selected_row["train_name"]),
@@ -150,21 +152,19 @@ if st.session_state.selected_train_id is not None:
                 "seat_type": seat_obj["seat_type"],
             }
 
-            # ---------------------------
             # Payment Confirmation Agent
-            # ---------------------------
             st.success("6) Payment Confirmation Agent ✔")
             amount = 35.00 if travel_class == "Standard" else 85.00
-          payment = payment_confirmation_agent(amount_gbp=amount, method="Card")
+            payment = payment_confirmation_agent(
+                amount_gbp=amount,
+                method="Card"
+            )
 
-            # ---------------------------
             # Notification Agent
-            # ---------------------------
             st.success("7) Notification Agent ✔")
             final_msg = notification_agent(booking, payment)
 
             st.markdown("## 📩 Final Output")
-            if payment["payment_status"] == "SUCCESS":
-                st.success(final_msg)
-            else:
-                st.error(final_msg)
+            st.success(final_msg)
+  
+      
