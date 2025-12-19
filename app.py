@@ -130,7 +130,7 @@ if st.session_state.selected_train_id is not None:
         # ---------------------------
         # Seat Booking Agent
         # ---------------------------
-     if st.button("🎟️ Confirm Seat Booking"):
+    if st.button("🎟️ Confirm Seat Booking"):
             st.success("5) Seat Booking Agent ✔")
             ok, msg = seat_booking_agent(
                 st.session_state.seat_map,
@@ -166,5 +166,3 @@ if st.session_state.selected_train_id is not None:
 
             st.markdown("## 📩 Final Output")
             st.success(final_msg)
-  
-      
